@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Email Header Analyzer</title>
+  <script>
+    async function analyzeHeader() {
+      const header = document.getElementById('headerInput').value;
+      const res = await fetch('/analyze', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ header: header })
+      });
+      const data = await res.json();
+      document.getElementById('result').innerHTML =
+        '<h3>Result:</h3><pre>' + JSON.stringify(data, null, 2) + '</pre>';
+    }
+  </script>
+</head>
+<body>
+  <h2>Email Header Analyzer</h2>
+  <textarea id="headerInput" rows="15" cols="80" placeholder="Paste email header here..."></textarea><br><br>
+  <button onclick="analyzeHeader()">Analyze</button>
+  <div id="result"></div>
+</body>
+</html>
